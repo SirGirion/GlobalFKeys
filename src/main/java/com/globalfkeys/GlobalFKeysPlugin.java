@@ -75,7 +75,7 @@ public class GlobalFKeysPlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
-		keyManager.registerKeyListener(inputListener);
+		keyManager.unregisterKeyListener(inputListener);
 	}
 
 	@Subscribe
