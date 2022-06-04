@@ -33,6 +33,10 @@ public class GlobalFKeysKeyListener implements KeyListener
     {
         int mappedKeyCode = KeyEvent.VK_UNDEFINED;
 		final int keyCode = e.getKeyCode();
+		if (keyCode == KeyEvent.VK_ESCAPE && plugin.isShouldNotRemapEscape())
+		{
+			return;
+		}
 
 		if (config.combatTab().getKeyEvent() == keyCode)
 		{
@@ -92,7 +96,7 @@ public class GlobalFKeysKeyListener implements KeyListener
 		}
 
         if (mappedKeyCode != KeyEvent.VK_UNDEFINED && mappedKeyCode != keyCode)
-        {
+		{
             final char keyChar = e.getKeyChar();
             modified.put(keyCode, mappedKeyCode);
             e.setKeyCode(mappedKeyCode);

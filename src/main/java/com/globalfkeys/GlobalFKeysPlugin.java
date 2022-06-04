@@ -10,7 +10,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
+import net.runelite.api.WidgetNode;
+import net.runelite.api.events.GameTick;
 import net.runelite.api.events.VarbitChanged;
+import net.runelite.api.widgets.WidgetModalMode;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
@@ -62,6 +65,9 @@ public class GlobalFKeysPlugin extends Plugin
 
 	@Inject
 	private ConfigManager configManager;
+
+	@Getter(AccessLevel.PACKAGE)
+	private boolean shouldNotRemapEscape;
 
 	@Getter(AccessLevel.PACKAGE)
 	private final Map<Integer, FKey> fkeyVarbitToKey = new HashMap<>();
@@ -116,6 +122,20 @@ public class GlobalFKeysPlugin extends Plugin
 				}
 			}
 		}
+	}
+
+	@Subscribe
+	private void onGameTick(GameTick gameTick)
+	{
+		boolean modalOpen = false;
+		for (WidgetNode node : client.getComponentTable())
+		{
+			if (node.getModalMode() != WidgetModalMode.NON_MODAL)
+			{
+				modalOpen = true;
+			}
+		}
+		shouldNotRemapEscape = modalOpen;
 	}
 
 	@Provides
