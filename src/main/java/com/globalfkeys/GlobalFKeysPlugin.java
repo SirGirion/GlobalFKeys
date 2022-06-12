@@ -90,8 +90,13 @@ public class GlobalFKeysPlugin extends Plugin
 		VARBITS.forEach(varbit ->
 		{
 			final int varbitVal = client.getVarbitValue(varbit);
-			log.debug("Storing FKey value {} for varbit {}", varbitVal, varbit);
-			fkeyVarbitToKey.put(varbit, FKey.VARBIT_TO_FKEY.get(varbitVal));
+			final FKey existingValue = fkeyVarbitToKey.get(varbit);
+			final FKey newValue = FKey.VARBIT_TO_FKEY.get(varbitVal);
+			if (existingValue == null || existingValue != newValue)
+			{
+				fkeyVarbitToKey.put(varbit, newValue);
+				log.debug("Storing FKey value {} for varbit {}", varbitVal, varbit);
+			}
 		});
 	}
 
