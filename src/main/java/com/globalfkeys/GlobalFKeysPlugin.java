@@ -1,3 +1,29 @@
+/*
+ * Copyright (c) 2022, SirGirion <seallproducts@gmail.com>
+ * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Abexlry <abexlry@gmail.com>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package com.globalfkeys;
 
 import com.google.common.collect.ImmutableSet;
@@ -10,9 +36,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
+import net.runelite.api.VarClientInt;
 import net.runelite.api.WidgetNode;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.VarbitChanged;
+import net.runelite.api.widgets.Widget;
+import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetModalMode;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -28,6 +57,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 public class GlobalFKeysPlugin extends Plugin
 {
 	// Following varbits get the F-Key the player has set in settings; value is numeric
+	// such that a value of 12 means that tab is bound to F12
 	static final int COMBAT_TAB_BINDING = 4675;
 	static final int SKILLS_TAB_BINDING = 4676;
 	static final int QUESTS_TAB_BINDING = 4677;
@@ -76,6 +106,16 @@ public class GlobalFKeysPlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		keyManager.registerKeyListener(inputListener);
+		configManager.getConfigurationKeys(GlobalFKeysConfig.CONFIG_GROUP_NAME)
+			.forEach(key ->
+			{
+				// New config values end in -Key, unset old ones for people
+				if (!key.endsWith("Key"))
+				{
+					final String rawKey = key.split("\\.", 2)[1];
+					configManager.unsetConfiguration(GlobalFKeysConfig.CONFIG_GROUP_NAME, rawKey);
+				}
+			});
 	}
 
 	@Override
@@ -105,7 +145,7 @@ public class GlobalFKeysPlugin extends Plugin
 	{
 		// If a user sets a keybinding, we need to check every other config
 		// and set them to None if they are the same key
-		// TODO: Revist if panel refresh ever gets supported
+		// TODO: Revisit if panel refresh ever gets supported
 		if (configChanged.getGroup().equals(GlobalFKeysConfig.CONFIG_GROUP_NAME))
 		{
 			log.debug("Checking for mutual exclusivity on config changed: {}", configChanged);

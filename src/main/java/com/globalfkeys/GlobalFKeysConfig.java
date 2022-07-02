@@ -3,163 +3,165 @@ package com.globalfkeys;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Keybind;
+import net.runelite.client.config.ModifierlessKeybind;
 
 @ConfigGroup(GlobalFKeysConfig.CONFIG_GROUP_NAME)
 public interface GlobalFKeysConfig extends Config
 {
-	String CONFIG_GROUP_NAME = "globalfkeys";
+	String CONFIG_GROUP_NAME = "globalKeybinds";
 	
 	@ConfigItem(
-		keyName = "combatTab",
-		name = "Combat Tab F-Key",
-		description = "F-Key to set for the combat tab",
+		keyName = "combatTabKey",
+		name = "Combat Tab Key",
+		description = "Key to set for the combat tab",
 		position = 1
 	)
-	default FKey combatTab()
+	default Keybind combatTab()
 	{
-		return FKey.NONE;
+		return Keybind.NOT_SET;
 	}
 
 	@ConfigItem(
-		keyName = "skillsTab",
-		name = "Skills Tab F-Key",
-		description = "F-Key to set for the skills tab",
+		keyName = "skillsTabKey",
+		name = "Skills Tab Key",
+		description = "Key to set for the skills tab",
 		position = 2
 	)
-	default FKey skillsTab()
+	default Keybind skillsTab()
 	{
-		return FKey.NONE;
+		return Keybind.NOT_SET;
 	}
 
 	@ConfigItem(
-		keyName = "questsTab",
-		name = "Quests Tab F-Key",
-		description = "F-Key to set for the quests tab",
+		keyName = "questsTabKey",
+		name = "Quests Tab Key",
+		description = "Key to set for the quests tab",
 		position = 3
 	)
-	default FKey questsTab()
+	default Keybind questsTab()
 	{
-		return FKey.NONE;
+		return Keybind.NOT_SET;
 	}
 
 	@ConfigItem(
-		keyName = "inventoryTab",
-		name = "Inventory Tab F-Key",
-		description = "F-Key to set for the inventory tab",
+		keyName = "inventoryTabKey",
+		name = "Inventory Tab Key",
+		description = "Key to set for the inventory tab",
 		position = 4
 	)
-	default FKey inventoryTab()
+	default Keybind inventoryTab()
 	{
-		return FKey.NONE;
+		return Keybind.NOT_SET;
 	}
 
 	@ConfigItem(
-		keyName = "equipmentTab",
-		name = "Equipment Tab F-Key",
-		description = "F-Key to set for the equipment tab",
+		keyName = "equipmentTabKey",
+		name = "Equipment Tab Key",
+		description = "Key to set for the equipment tab",
 		position = 5
 	)
-	default FKey equipmentTab()
+	default Keybind equipmentTab()
 	{
-		return FKey.NONE;
+		return Keybind.NOT_SET;
 	}
 
 	@ConfigItem(
-		keyName = "prayerTab",
-		name = "Prayer Tab F-Key",
-		description = "F-Key to set for the prayer tab",
+		keyName = "prayerTabKey",
+		name = "Prayer Tab Key",
+		description = "Key to set for the prayer tab",
 		position = 6
 	)
-	default FKey prayerTab()
+	default Keybind prayerTab()
 	{
-		return FKey.NONE;
+		return Keybind.NOT_SET;
 	}
 
 	@ConfigItem(
-		keyName = "magicTab",
-		name = "Magic Tab F-Key",
-		description = "F-Key to set for the magic tab",
+		keyName = "magicTabKey",
+		name = "Magic Tab Key",
+		description = "Key to set for the magic tab",
 		position = 7
 	)
-	default FKey magicTab()
+	default Keybind magicTab()
 	{
-		return FKey.NONE;
+		return Keybind.NOT_SET;
 	}
 
 	@ConfigItem(
-		keyName = "friendsTab",
-		name = "Friends Tab F-Key",
-		description = "F-Key to set for the friends tab",
+		keyName = "friendsTabKey",
+		name = "Friends Tab Key",
+		description = "Key to set for the friends tab",
 		position = 8
 	)
-	default FKey friendsTab()
+	default Keybind friendsTab()
 	{
-		return FKey.NONE;
+		return Keybind.NOT_SET;
 	}
 
 	@ConfigItem(
-		keyName = "accountManagementTab",
-		name = "Account Management Tab F-Key",
-		description = "F-Key to set for the account management tab",
+		keyName = "accountManagementTabKey",
+		name = "Account Management Tab Key",
+		description = "Key to set for the account management tab",
 		position = 9
 	)
-	default FKey accountManagementTab()
+	default Keybind accountManagementTab()
 	{
-		return FKey.NONE;
+		return Keybind.NOT_SET;
 	}
 
 	@ConfigItem(
-		keyName = "logoutTab",
-		name = "Logout Tab F-Key",
-		description = "F-Key to set for the logout tab",
+		keyName = "logoutTabKey",
+		name = "Logout Tab Key",
+		description = "Key to set for the logout tab",
 		position = 10
 	)
-	default FKey logoutTab()
+	default Keybind logoutTab()
 	{
-		return FKey.NONE;
+		return Keybind.NOT_SET;
 	}
 
 	@ConfigItem(
-		keyName = "settingsTab",
-		name = "Settings Tab F-Key",
-		description = "F-Key to set for the settings tab",
+		keyName = "settingsTabKey",
+		name = "Settings Tab Key",
+		description = "Key to set for the settings tab",
 		position = 11
 	)
-	default FKey settingsTab()
+	default Keybind settingsTab()
 	{
-		return FKey.NONE;
+		return Keybind.NOT_SET;
 	}
 
 	@ConfigItem(
-		keyName = "emotesTab",
-		name = "Emotes Tab F-Key",
-		description = "F-Key to set for the emotes tab",
+		keyName = "emotesTabKey",
+		name = "Emotes Tab Key",
+		description = "Key to set for the emotes tab",
 		position = 12
 	)
-	default FKey emotesTab()
+	default Keybind emotesTab()
 	{
-		return FKey.NONE;
+		return Keybind.NOT_SET;
 	}
 
 	@ConfigItem(
-		keyName = "chatChannelTab",
-		name = "Chat-Channel Tab F-Key",
-		description = "F-Key to set for the chat-channel tab",
+		keyName = "chatChannelTabKey",
+		name = "Chat-Channel Tab Key",
+		description = "Key to set for the chat-channel tab",
 		position = 13
 	)
-	default FKey chatChannelTab()
+	default Keybind chatChannelTab()
 	{
-		return FKey.NONE;
+		return Keybind.NOT_SET;
 	}
 
 	@ConfigItem(
-		keyName = "musicPlayerTab",
-		name = "Music Player Tab F-Key",
-		description = "F-Key to set for the music player tab",
+		keyName = "musicPlayerTabKey",
+		name = "Music Player Tab Key",
+		description = "Key to set for the music player tab",
 		position = 14
 	)
-	default FKey musicPlayerTab()
+	default Keybind musicPlayerTab()
 	{
-		return FKey.NONE;
+		return Keybind.NOT_SET;
 	}
 }
