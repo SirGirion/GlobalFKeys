@@ -25,6 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */package com.globalfkeys;
 
+import com.google.common.collect.ImmutableSet;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -44,6 +45,21 @@ public class GlobalFKeysKeyListener implements KeyListener
 
     private final Map<Integer, Integer> modified = new HashMap<>();
     private final Set<Character> blockedChars = new HashSet<>();
+	private final ImmutableSet<Integer> ALLOWED_WHEN_DIALOGUE = new ImmutableSet.Builder<Integer>()
+		.add(KeyEvent.VK_F1)
+		.add(KeyEvent.VK_F2)
+		.add(KeyEvent.VK_F3)
+		.add(KeyEvent.VK_F4)
+		.add(KeyEvent.VK_F5)
+		.add(KeyEvent.VK_F6)
+		.add(KeyEvent.VK_F7)
+		.add(KeyEvent.VK_F8)
+		.add(KeyEvent.VK_F9)
+		.add(KeyEvent.VK_F10)
+		.add(KeyEvent.VK_F11)
+		.add(KeyEvent.VK_F12)
+		.add(KeyEvent.VK_ESCAPE)
+		.build();
 
     @Override
     public void keyTyped(KeyEvent e)
@@ -72,64 +88,68 @@ public class GlobalFKeysKeyListener implements KeyListener
 			return;
 		}
 
-		if (!plugin.isDialogOpen())
+		if (config.combatTab().matches(e))
 		{
-			if (config.combatTab().matches(e))
-			{
-				mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.COMBAT_TAB_BINDING).getKeyEvent();
-			}
-			else if (config.skillsTab().matches(e))
-			{
-				mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.SKILLS_TAB_BINDING).getKeyEvent();
-			}
-			else if (config.questsTab().matches(e))
-			{
-				mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.QUESTS_TAB_BINDING).getKeyEvent();
-			}
-			else if (config.inventoryTab().matches(e))
-			{
-				mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.INVENTORY_TAB_BINDING).getKeyEvent();
-			}
-			else if (config.equipmentTab().matches(e))
-			{
-				mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.EQUIPMENT_TAB_BINDING).getKeyEvent();
-			}
-			else if (config.prayerTab().matches(e))
-			{
-				mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.PRAYER_TAB_BINDING).getKeyEvent();
-			}
-			else if (config.magicTab().matches(e))
-			{
-				mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.MAGIC_TAB_BINDING).getKeyEvent();
-			}
-			else if (config.friendsTab().matches(e))
-			{
-				mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.FRIENDS_TAB_BINDING).getKeyEvent();
-			}
-			else if (config.accountManagementTab().matches(e))
-			{
-				mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.ACCOUNT_MANAGEMENT_TAB_BINDING).getKeyEvent();
-			}
-			else if (config.logoutTab().matches(e))
-			{
-				mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.LOGOUT_BINDING).getKeyEvent();
-			}
-			else if (config.settingsTab().matches(e))
-			{
-				mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.SETTINGS_TAB_BINDING).getKeyEvent();
-			}
-			else if (config.emotesTab().matches(e))
-			{
-				mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.EMOTE_TAB_BINDING).getKeyEvent();
-			}
-			else if (config.chatChannelTab().matches(e))
-			{
-				mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.CHAT_CHANNEL_TAB_BINDING).getKeyEvent();
-			}
-			else if (config.musicPlayerTab().matches(e))
-			{
-				mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.MUSIC_PLAYER_TAB_BINDING).getKeyEvent();
-			}
+			mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.COMBAT_TAB_BINDING).getKeyEvent();
+		}
+		else if (config.skillsTab().matches(e))
+		{
+			mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.SKILLS_TAB_BINDING).getKeyEvent();
+		}
+		else if (config.questsTab().matches(e))
+		{
+			mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.QUESTS_TAB_BINDING).getKeyEvent();
+		}
+		else if (config.inventoryTab().matches(e))
+		{
+			mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.INVENTORY_TAB_BINDING).getKeyEvent();
+		}
+		else if (config.equipmentTab().matches(e))
+		{
+			mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.EQUIPMENT_TAB_BINDING).getKeyEvent();
+		}
+		else if (config.prayerTab().matches(e))
+		{
+			mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.PRAYER_TAB_BINDING).getKeyEvent();
+		}
+		else if (config.magicTab().matches(e))
+		{
+			mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.MAGIC_TAB_BINDING).getKeyEvent();
+		}
+		else if (config.friendsTab().matches(e))
+		{
+			mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.FRIENDS_TAB_BINDING).getKeyEvent();
+		}
+		else if (config.accountManagementTab().matches(e))
+		{
+			mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.ACCOUNT_MANAGEMENT_TAB_BINDING).getKeyEvent();
+		}
+		else if (config.logoutTab().matches(e))
+		{
+			mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.LOGOUT_BINDING).getKeyEvent();
+		}
+		else if (config.settingsTab().matches(e))
+		{
+			mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.SETTINGS_TAB_BINDING).getKeyEvent();
+		}
+		else if (config.emotesTab().matches(e))
+		{
+			mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.EMOTE_TAB_BINDING).getKeyEvent();
+		}
+		else if (config.chatChannelTab().matches(e))
+		{
+			mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.CHAT_CHANNEL_TAB_BINDING).getKeyEvent();
+		}
+		else if (config.musicPlayerTab().matches(e))
+		{
+			mappedKeyCode = plugin.getFkeyVarbitToKey().get(GlobalFKeysPlugin.MUSIC_PLAYER_TAB_BINDING).getKeyEvent();
+		}
+
+		// In vanilla, if there is a dialogue open, the F keys work as expected so IIF a user has an F key
+		// set as a remap, still send it. Otherwise, treat it like they pressed the real key not an F key
+		if (plugin.isDialogOpen() && !ALLOWED_WHEN_DIALOGUE.contains(mappedKeyCode))
+		{
+			mappedKeyCode = KeyEvent.VK_UNDEFINED;
 		}
 
         if (mappedKeyCode != KeyEvent.VK_UNDEFINED && mappedKeyCode != keyCode)
